@@ -1,0 +1,78 @@
+{
+    "dataset_name": "UCI Online Retail",
+    "total_records": 541909,
+    "total_checks": 7,
+    "failed_checks": 5,
+    "critical_issue_count": 2,
+    "overall_status": "ATTENTION_REQUIRED",
+    "validation_results": [
+        {
+            "rule_id": "DQ001",
+            "rule_name": "Missing CustomerID",
+            "severity": "WARNING",
+            "status": "FAIL",
+            "issue_count": 135080,
+            "description": "CustomerID is missing. Transaction may still be valid."
+        },
+        {
+            "rule_id": "DQ002",
+            "rule_name": "Missing Description",
+            "severity": "WARNING",
+            "status": "FAIL",
+            "issue_count": 1454,
+            "description": "Product description is missing."
+        },
+        {
+            "rule_id": "DQ003",
+            "rule_name": "Duplicate transactions",
+            "severity": "WARNING",
+            "status": "FAIL",
+            "issue_count": 5268,
+            "description": "Exact duplicate rows were detected."
+        },
+        {
+            "rule_id": "DQ004",
+            "rule_name": "Negative UnitPrice",
+            "severity": "CRITICAL",
+            "status": "FAIL",
+            "issue_count": 2,
+            "description": "UnitPrice is negative and requires investigation."
+        },
+        {
+            "rule_id": "DQ005",
+            "rule_name": "Zero UnitPrice",
+            "severity": "WARNING",
+            "status": "FAIL",
+            "issue_count": 2515,
+            "description": "UnitPrice is zero. Verify whether this is intentional."
+        },
+        {
+            "rule_id": "DQ006",
+            "rule_name": "Invalid InvoiceDate",
+            "severity": "CRITICAL",
+            "status": "PASS",
+            "issue_count": 0,
+            "description": "InvoiceDate is missing or cannot be interpreted as a date."
+        },
+        {
+            "rule_id": "DQ007",
+            "rule_name": "Zero Quantity",
+            "severity": "WARNING",
+            "status": "PASS",
+            "issue_count": 0,
+            "description": "Quantity is zero and requires investigation."
+        }
+    ],
+    "business_observations": [
+        {
+            "name": "Negative quantity records",
+            "record_count": 10624,
+            "interpretation": "May represent returns or credit transactions. Do not automatically classify as invalid."
+        },
+        {
+            "name": "Cancelled invoices",
+            "record_count": 9288,
+            "interpretation": "Invoice numbers beginning with C indicate cancellations in this dataset."
+        }
+    ]
+}

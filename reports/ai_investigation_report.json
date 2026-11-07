@@ -1,0 +1,163 @@
+{
+    "report_type": "AI Data Quality Investigation",
+    "generated_at": "2026-11-05T18:12:31.089016+00:00",
+    "dataset_name": "UCI Online Retail",
+    "total_records": 541909,
+    "validation_summary": {
+        "total_checks": 7,
+        "failed_checks": 5,
+        "critical_failed_checks": 1,
+        "warning_failed_checks": 4
+    },
+    "pipeline_recommendation": {
+        "decision": "HOLD_FOR_INVESTIGATION",
+        "reason": "Critical data-quality failures were detected. Investigate them before approving the pipeline."
+    },
+    "investigation_results": [
+        {
+            "rule_id": "DQ001",
+            "rule_name": "Missing CustomerID",
+            "severity": "WARNING",
+            "validation_status": "FAIL",
+            "issue_count": 135080,
+            "observed_fact": "CustomerID is missing. Transaction may still be valid.",
+            "possible_root_causes": [
+                "Customer information was not captured during checkout.",
+                "Customer data was not available in the source transaction.",
+                "Customer identification was optional for some purchases."
+            ],
+            "root_cause_status": "HYPOTHESES_NOT_VERIFIED",
+            "investigation_status": "REVIEW_RECOMMENDED",
+            "investigation_steps": [
+                "Check whether missing CustomerID records are concentrated in particular countries.",
+                "Compare missing CustomerID records with invoice types and transaction dates.",
+                "Verify whether anonymous purchases are permitted by the business."
+            ],
+            "recommended_action": "Preserve valid transactions. Investigate customer attribution requirements before applying any correction."
+        },
+        {
+            "rule_id": "DQ002",
+            "rule_name": "Missing Description",
+            "severity": "WARNING",
+            "validation_status": "FAIL",
+            "issue_count": 1454,
+            "observed_fact": "Product description is missing.",
+            "possible_root_causes": [
+                "Product descriptions were not populated in the source system.",
+                "Product master data may be incomplete.",
+                "Product information may have been lost during data extraction."
+            ],
+            "root_cause_status": "HYPOTHESES_NOT_VERIFIED",
+            "investigation_status": "REVIEW_RECOMMENDED",
+            "investigation_steps": [
+                "Identify the StockCode values associated with missing descriptions.",
+                "Compare missing descriptions against the product master.",
+                "Check whether the missing values are concentrated in specific periods."
+            ],
+            "recommended_action": "Enrich descriptions from an authoritative product master where possible."
+        },
+        {
+            "rule_id": "DQ003",
+            "rule_name": "Duplicate transactions",
+            "severity": "WARNING",
+            "validation_status": "FAIL",
+            "issue_count": 5268,
+            "observed_fact": "Exact duplicate rows were detected.",
+            "possible_root_causes": [
+                "Duplicate transactions may have entered the source system.",
+                "Data extraction or ingestion may have processed records more than once.",
+                "Duplicate records may have originated from an upstream integration."
+            ],
+            "root_cause_status": "HYPOTHESES_NOT_VERIFIED",
+            "investigation_status": "REVIEW_RECOMMENDED",
+            "investigation_steps": [
+                "Identify the duplicated transaction keys and exact duplicate rows.",
+                "Check source extraction and ingestion logs.",
+                "Determine whether duplicates are present in the original source dataset."
+            ],
+            "recommended_action": "Verify duplicates against source records before removing them."
+        },
+        {
+            "rule_id": "DQ004",
+            "rule_name": "Negative UnitPrice",
+            "severity": "CRITICAL",
+            "validation_status": "FAIL",
+            "issue_count": 2,
+            "observed_fact": "UnitPrice is negative and requires investigation.",
+            "possible_root_causes": [
+                "Incorrect UnitPrice values may have originated in the source system.",
+                "A data transformation or mapping error may have changed the price.",
+                "Negative prices may represent exceptional business adjustments."
+            ],
+            "root_cause_status": "HYPOTHESES_NOT_VERIFIED",
+            "investigation_status": "CRITICAL_INVESTIGATION_REQUIRED",
+            "investigation_steps": [
+                "Extract the two records containing negative UnitPrice values.",
+                "Inspect their InvoiceNo, StockCode, Quantity and InvoiceDate.",
+                "Check whether these records represent legitimate adjustments or erroneous prices.",
+                "Compare the values with the original transaction records."
+            ],
+            "recommended_action": "Treat as a critical investigation item. Do not automatically replace negative prices with zero or delete the transactions."
+        },
+        {
+            "rule_id": "DQ005",
+            "rule_name": "Zero UnitPrice",
+            "severity": "WARNING",
+            "validation_status": "FAIL",
+            "issue_count": 2515,
+            "observed_fact": "UnitPrice is zero. Verify whether this is intentional.",
+            "possible_root_causes": [
+                "Zero-priced items may represent promotional or complimentary products.",
+                "The source system may have incomplete pricing information.",
+                "A pricing transformation may have incorrectly assigned zero."
+            ],
+            "root_cause_status": "HYPOTHESES_NOT_VERIFIED",
+            "investigation_status": "REVIEW_RECOMMENDED",
+            "investigation_steps": [
+                "Identify the StockCode and InvoiceNo values with zero UnitPrice.",
+                "Check whether these items belong to promotional transactions.",
+                "Compare zero-priced records with other transactions for the same product."
+            ],
+            "recommended_action": "Verify business context before changing zero-priced transactions."
+        },
+        {
+            "rule_id": "DQ006",
+            "rule_name": "Invalid InvoiceDate",
+            "severity": "CRITICAL",
+            "validation_status": "PASS",
+            "issue_count": 0,
+            "observed_fact": "InvoiceDate is missing or cannot be interpreted as a date.",
+            "possible_root_causes": [],
+            "root_cause_status": "NOT_APPLICABLE",
+            "investigation_status": "NO_ACTION_REQUIRED",
+            "investigation_steps": [],
+            "recommended_action": "No action required. Validation passed."
+        },
+        {
+            "rule_id": "DQ007",
+            "rule_name": "Zero Quantity",
+            "severity": "WARNING",
+            "validation_status": "PASS",
+            "issue_count": 0,
+            "observed_fact": "Quantity is zero and requires investigation.",
+            "possible_root_causes": [],
+            "root_cause_status": "NOT_APPLICABLE",
+            "investigation_status": "NO_ACTION_REQUIRED",
+            "investigation_steps": [],
+            "recommended_action": "No action required. Validation passed."
+        }
+    ],
+    "business_observations": [
+        {
+            "name": "Negative quantity records",
+            "record_count": 10624,
+            "interpretation": "May represent returns or credit transactions. Do not automatically classify as invalid."
+        },
+        {
+            "name": "Cancelled invoices",
+            "record_count": 9288,
+            "interpretation": "Invoice numbers beginning with C indicate cancellations in this dataset."
+        }
+    ],
+    "important_note": "Issue counts across different rules may overlap. They must not be interpreted as unique affected records. Possible root causes are hypotheses and require verification."
+}

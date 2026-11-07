@@ -1,0 +1,27 @@
+{
+    "pipeline_name": "DataOps AI Assistant",
+    "total_duration_seconds": 65.03,
+    "execution_results": [
+        {
+            "step": "Data Profiling",
+            "status": "SUCCESS",
+            "duration_seconds": 33.43
+        },
+        {
+            "step": "Data Quality Validation",
+            "status": "SUCCESS",
+            "duration_seconds": 31.57
+        },
+        {
+            "step": "AI Investigation",
+            "status": "SUCCESS",
+            "duration_seconds": 0.01
+        },
+        {
+            "step": "Business Impact Analysis",
+            "status": "SUCCESS",
+            "duration_seconds": 0.02
+        }
+    ],
+    "overall_status": "SUCCESS"
+}

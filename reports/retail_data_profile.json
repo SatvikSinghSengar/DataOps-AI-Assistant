@@ -1,0 +1,54 @@
+{
+    "dataset_name": "UCI Online Retail",
+    "total_rows": 541909,
+    "total_columns": 8,
+    "columns": [
+        "InvoiceNo",
+        "StockCode",
+        "Description",
+        "Quantity",
+        "InvoiceDate",
+        "UnitPrice",
+        "CustomerID",
+        "Country"
+    ],
+    "data_types": {
+        "InvoiceNo": "object",
+        "StockCode": "object",
+        "Description": "object",
+        "Quantity": "int64",
+        "InvoiceDate": "datetime64[us]",
+        "UnitPrice": "float64",
+        "CustomerID": "float64",
+        "Country": "str"
+    },
+    "missing_values": {
+        "Description": 1454,
+        "CustomerID": 135080
+    },
+    "duplicate_records": 5268,
+    "numeric_summary": {
+        "Quantity": {
+            "minimum": -80995.0,
+            "maximum": 80995.0,
+            "mean": 9.55
+        },
+        "UnitPrice": {
+            "minimum": -11062.06,
+            "maximum": 38970.0,
+            "mean": 4.61
+        }
+    },
+    "negative_quantity_records": 10624,
+    "zero_price_records": 2515,
+    "negative_price_records": 2,
+    "cancelled_invoice_records": 9288,
+    "invalid_invoice_dates": 0,
+    "unique_customers": 4372,
+    "unique_products": 4070,
+    "unique_countries": 38,
+    "date_range": {
+        "start": "2010-12-01 08:26:00",
+        "end": "2011-12-09 12:50:00"
+    }
+}

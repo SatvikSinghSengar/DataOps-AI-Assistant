@@ -1,0 +1,101 @@
+{
+    "report_type": "Business Impact Analysis",
+    "generated_at": "2026-11-05T18:12:31.104822+00:00",
+    "dataset_name": "UCI Online Retail",
+    "executive_summary": {
+        "dataset_size": 541909,
+        "identified_business_impact_areas": 5,
+        "critical_priority_issues": 1,
+        "high_priority_issues": 2,
+        "medium_priority_issues": 2,
+        "highest_priority_issue": "Negative UnitPrice (2 records)",
+        "overall_assessment": "Business review is required before approving this dataset.",
+        "interpretation_note": "Affected percentages are calculated independently for each rule. Records may overlap across rules, so percentages must not be added together."
+    },
+    "business_impact_results": [
+        {
+            "rule_id": "DQ004",
+            "rule_name": "Negative UnitPrice",
+            "severity": "CRITICAL",
+            "issue_count": 2,
+            "affected_percentage": 0.0,
+            "impact_area": "Pricing and Financial Reporting",
+            "business_priority": "CRITICAL",
+            "business_impact": "Negative UnitPrice values may distort pricing analysis and financial calculations if they are not legitimate business adjustments.",
+            "affected_business_functions": [
+                "Revenue reporting",
+                "Pricing analytics",
+                "Financial reconciliation"
+            ],
+            "root_cause_verified": false
+        },
+        {
+            "rule_id": "DQ001",
+            "rule_name": "Missing CustomerID",
+            "severity": "WARNING",
+            "issue_count": 135080,
+            "affected_percentage": 24.93,
+            "impact_area": "Customer Analytics",
+            "business_priority": "HIGH",
+            "business_impact": "Missing CustomerID values may reduce the accuracy of customer segmentation, customer purchase history and customer lifetime value analysis.",
+            "affected_business_functions": [
+                "Customer segmentation",
+                "Customer behavior analysis",
+                "Customer lifetime value reporting"
+            ],
+            "root_cause_verified": false
+        },
+        {
+            "rule_id": "DQ003",
+            "rule_name": "Duplicate transactions",
+            "severity": "WARNING",
+            "issue_count": 5268,
+            "affected_percentage": 0.97,
+            "impact_area": "Financial and Transaction Reporting",
+            "business_priority": "HIGH",
+            "business_impact": "Duplicate transactions may inflate transaction counts and potentially distort revenue and sales reporting.",
+            "affected_business_functions": [
+                "Sales reporting",
+                "Revenue analytics",
+                "Transaction reconciliation"
+            ],
+            "root_cause_verified": false
+        },
+        {
+            "rule_id": "DQ002",
+            "rule_name": "Missing Description",
+            "severity": "WARNING",
+            "issue_count": 1454,
+            "affected_percentage": 0.27,
+            "impact_area": "Product Analytics",
+            "business_priority": "MEDIUM",
+            "business_impact": "Missing product descriptions may affect product identification, product-level reporting and catalog analysis.",
+            "affected_business_functions": [
+                "Product reporting",
+                "Product catalog analysis",
+                "Product performance dashboards"
+            ],
+            "root_cause_verified": false
+        },
+        {
+            "rule_id": "DQ005",
+            "rule_name": "Zero UnitPrice",
+            "severity": "WARNING",
+            "issue_count": 2515,
+            "affected_percentage": 0.46,
+            "impact_area": "Revenue and Product Analytics",
+            "business_priority": "MEDIUM",
+            "business_impact": "Zero-priced transactions may affect revenue calculations and product performance reporting. They may also represent legitimate promotional or complimentary items.",
+            "affected_business_functions": [
+                "Revenue analytics",
+                "Promotional analysis",
+                "Product performance reporting"
+            ],
+            "root_cause_verified": false
+        }
+    ],
+    "pipeline_recommendation": {
+        "decision": "HOLD_FOR_INVESTIGATION",
+        "reason": "Critical data-quality failures were detected. Investigate them before approving the pipeline."
+    }
+}
